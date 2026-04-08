@@ -3,7 +3,6 @@ const motorRpmText = document.getElementById("motorRpmText");
 const displayRpm = document.getElementById("displayRpm");
 const displayCritical = document.getElementById("displayCritical");
 const criticalLabel = document.getElementById("criticalLabel");
-const criticalDisplay = document.getElementById("criticalDisplay");
 const shaftCanvas = document.getElementById("shaftCanvas");
 const shaftCtx = shaftCanvas.getContext("2d");
 const responseGraph = document.getElementById("responseGraph");
@@ -128,7 +127,6 @@ function refreshUi() {
   const rounded = critical.toFixed(1);
   displayCritical.textContent = rounded;
   criticalLabel.textContent = rounded;
-  criticalDisplay.textContent = rounded;
 
   drawShaft();
   drawResponseGraph();
