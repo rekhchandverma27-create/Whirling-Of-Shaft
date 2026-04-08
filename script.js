@@ -40,6 +40,12 @@ let running = false;
 let lastTimestamp = null;
 let shaftPhase = 0;
 
+function setText(element, value) {
+  if (element) {
+    element.textContent = value;
+  }
+}
+
 function updateMaterialDisplay() {
   const material = materials[currentMaterial];
   matE.textContent = material.E;
@@ -116,17 +122,17 @@ function getNiceAxisLimit(value) {
 }
 
 function refreshUi() {
-  motorRpmText.textContent = motorRpm.value;
-  displayRpm.textContent = motorRpm.value;
-  lengthValue.textContent = lengthSlider.value;
-  diameterValue.textContent = diameterSlider.value;
-  eccentricityValue.textContent = parseFloat(eccentricitySlider.value).toFixed(1);
-  dampingValue.textContent = parseFloat(dampingSlider.value).toFixed(2);
+  setText(motorRpmText, motorRpm.value);
+  setText(displayRpm, motorRpm.value);
+  setText(lengthValue, lengthSlider.value);
+  setText(diameterValue, diameterSlider.value);
+  setText(eccentricityValue, parseFloat(eccentricitySlider.value).toFixed(1));
+  setText(dampingValue, parseFloat(dampingSlider.value).toFixed(2));
 
   const critical = calculateCritical();
   const rounded = critical.toFixed(1);
-  displayCritical.textContent = rounded;
-  criticalLabel.textContent = rounded;
+  setText(displayCritical, rounded);
+  setText(criticalLabel, rounded);
 
   drawShaft();
   drawResponseGraph();
@@ -380,10 +386,10 @@ function drawResponseGraph() {
   graphCtx.font = "12px Inter, sans-serif";
   graphCtx.fillText("Whirling Speed", criticalX - 32, padding.top + 14);
 
-  speedRatioReadout.textContent = `r = ${(currentOmega / omegaN).toFixed(2)}`;
-  omegaReadout.textContent = `\u03c9 = ${currentOmega.toFixed(1)} rad/s`;
-  naturalFrequencyReadout.textContent = omegaN.toFixed(2);
-  criticalSpeedReadout.textContent = criticalRpm.toFixed(2);
+  setText(speedRatioReadout, `r = ${(currentOmega / omegaN).toFixed(2)}`);
+  setText(omegaReadout, `\u03c9 = ${currentOmega.toFixed(1)} rad/s`);
+  setText(naturalFrequencyReadout, omegaN.toFixed(2));
+  setText(criticalSpeedReadout, criticalRpm.toFixed(2));
 }
 
 function animateShaft(timestamp) {
