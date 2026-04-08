@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whirling Speed of a Shaft</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <span class="badge">Experiment No. 5</span>
+      <h1>Whirling Speed of a Shaft</h1>
+      <p class="subtitle">Dynamics of Machines Laboratory - Interactive Simulation</p>
+    </header>
+
+    <section class="layout-grid">
+      <article class="card controls-card">
+        <h2>Controls</h2>
+        <p class="small-label">Motor Speed: <strong><span id="motorRpmText">310</span> RPM</strong></p>
+        <input type="range" id="motorRpm" min="0" max="5000" value="310" step="1">
+        <p class="critical-note">Critical: <span id="criticalLabel">2708</span></p>
+
+        <div class="button-row">
+          <button id="startButton" class="primary">Start</button>
+          <button id="stopButton" class="danger">Stop</button>
+          <button id="resetButton" class="ghost">&#8635;</button>
+        </div>
+
+        <div class="parameter-panel">
+          <h3>SHAFT PARAMETERS</h3>
+          <label>Length (mm): <span id="lengthValue">600</span></label>
+          <input type="range" id="shaftLength" min="300" max="1200" value="600">
+          <label>Diameter (mm): <span id="diameterValue">8</span></label>
+          <input type="range" id="shaftDiameter" min="4" max="20" value="8">
+          <label>Eccentricity (mm): <span id="eccentricityValue">0.6</span></label>
+          <input type="range" id="shaftEccentricity" min="0.1" max="2" value="0.6" step="0.1">
+          <label>Damping ratio: <span id="dampingValue">0.08</span></label>
+          <input type="range" id="shaftDamping" min="0.01" max="0.30" value="0.08" step="0.01">
+          <label>Material</label>
+          <div class="material-grid">
+            <button class="material-button selected" data-material="steel">Mild Steel</button>
+            <button class="material-button" data-material="aluminium">Aluminium</button>
+            <button class="material-button" data-material="brass">Brass</button>
+            <button class="material-button" data-material="copper">Copper</button>
+          </div>
+          <div class="material-specs">
+            <div>E = <strong><span id="matE">210</span></strong> GPa</div>
+            <div>&rho; = <strong><span id="matRho">7850</span></strong> kg/m&sup3;</div>
+          </div>
+        </div>
+      </article>
+
+      <div class="simulation-column">
+        <section class="hero-card">
+          <div class="hero-panel">
+            <div class="hero-panel-left">
+              <div class="hero-value"><span id="displayRpm">310</span> <small>RPM</small></div>
+              <div class="hero-label">Critical: <span id="displayCritical">2708</span> RPM</div>
+            </div>
+            <div id="statusBadge" class="hero-badge">SAFE OPERATION</div>
+          </div>
+
+          <div class="shaft-board">
+            <div class="bearing left">
+              <div class="bearing-center-mark"></div>
+              <div class="bearing-caption">BEARING</div>
+            </div>
+            <div class="shaft-track">
+              <canvas id="shaftCanvas"></canvas>
+            </div>
+            <div class="bearing right">
+              <div class="motor">MOTOR</div>
+              <div class="bearing-center-mark"></div>
+              <div class="bearing-caption">BEARING</div>
+            </div>
+            <div class="shaft-label">SHAFT</div>
+          </div>
+
+          <section class="graph-card">
+            <div class="graph-header">
+              <div>
+                <h2>Amplitude vs Angular Speed</h2>
+                <p>Damped whirl response using current shaft properties, eccentricity and damping ratio.</p>
+              </div>
+              <div class="graph-readout">
+                <span id="speedRatioReadout">r = 0.63</span>
+                <span id="omegaReadout">&omega; = 178.0 rad/s</span>
+              </div>
+            </div>
+            <div class="graph-frame">
+              <canvas id="responseGraph"></canvas>
+            </div>
+            <div class="graph-stats">
+              <p>Natural Frequency: <span id="naturalFrequencyReadout">31.62</span> rad/s</p>
+              <p>Critical Speed: <span id="criticalSpeedReadout">301.98</span> RPM</p>
+            </div>
+          </section>
+        </section>
+      </div>
+
+      <section class="bottom-grid">
+        <article class="card theory-card">
+          <h2>Theory</h2>
+          <h3>Whirling Speed</h3>
+          <p>The whirling speed of a shaft is the speed at which the rotating shaft starts vibrating laterally with large amplitude due to resonance. This condition occurs when the running speed of the shaft becomes equal to its natural frequency.</p>
+          <p><strong>NOTE:</strong> Whirling speed is equal to the natural frequency speed, and this is also called the <strong>critical speed</strong>.</p>
+          <h3>Natural Frequency</h3>
+          <p>The natural frequency is the frequency at which the shaft vibrates freely when disturbed.</p>
+          <p class="formula-line">&omega;<sub>n</sub> = &radic;(k / m),&nbsp;&nbsp;&nbsp;&nbsp;k = 48EI / L<sup>3</sup>&nbsp;&nbsp;&nbsp;&nbsp;&Longrightarrow;&nbsp;&nbsp;&nbsp;&nbsp;&omega;<sub>n</sub> = &radic;(48EI / &rho;AL<sup>4</sup>)</p>
+          <h3>Amplitude <span class="heading-light">(Damped Condition)</span></h3>
+          <p>The amplitude in damped whirling depends on the speed ratio, eccentricity and damping ratio.</p>
+          <p class="formula-line">X = e(&omega;/&omega;<sub>n</sub>)<sup>2</sup> / &radic;[(1 - (&omega;/&omega;<sub>n</sub>)<sup>2</sup>)<sup>2</sup> + (2&zeta;&omega;/&omega;<sub>n</sub>)<sup>2</sup>]</p>
+          <p>Here, &zeta; is the damping ratio.</p>
+        </article>
+
+      </section>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
